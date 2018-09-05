@@ -17,7 +17,7 @@ app.use(express.static(__dirname + '/public'));
 //port number to listen on
 port = process.env.PORT || 8081;
 
-app.get('/', routesAPI.main);
+app.get('/', routesAPI.home);
 
 app.listen(port, function(){
     console.log(chalk.green('server is up and running on port ' + port));
