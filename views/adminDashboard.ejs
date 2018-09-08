@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <% include partials/head.ejs %>
+    </head>
+    <body>
+        <% include partials/navbar.ejs %>
+        <div class="container">
+            <h1 align="center">admin dashboard</h1>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 align="center" class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Add/Update/Delete Team Members</a>
+                    </h2>
+                </div>
+                <div class="panel-collapse collapse" id="collapse1">
+                    <div class="panel-body">
+                        <!--Adding and updating tem members-->
+                        <div class="row">
+                            <div class="team col-md-4 col-md-offset-1">            
+                                <h3 align="center">Add a new Team Member</h3>
+                                <form action="/addMember" method="post">
+                                    <p class="input-group">
+                                        <span class="input-group-addon"><span class="icon-user"></span></span>
+                                        <input type="text" required class="form-control input-lg" name="memberName" placeholder="enter name">
+                                    </p>
+                                    <p class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span>
+                                        <input type="text" required class="form-control input-lg" name="memberDesignation" placeholder="enter Designation">
+                                    </p>
+                                    <p class="input-group">                               
+                                        <textarea type="text" rows="10" cols="50" required class="form-control input-lg" name="memberText" placeholder="enter text"></textarea>
+                                    </p>
+                                    <p class="text-center">
+                                        <button class="btn btn-info btn-lg">Add</button>
+                                    </p>
+                                </form>
+                            </div>
+                            <div class="team col-md-4 col-md-offset-2">            
+                                <h3 align="center">Update an existing member</h3>
+                                <form action="/updateMember" method="post">
+                                    <p class="input-group">
+                                        <span class="input-group-addon"><span class="icon-user"></span></span>
+                                        <input type="text" required class="form-control input-lg" name="memberName" placeholder="enter name">
+                                    </p>
+                                    <p class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span>
+                                        <input type="text" required class="form-control input-lg" name="memberName" placeholder="enter Designation">
+                                    </p>
+                                    <p class="input-group">                               
+                                        <textarea type="text" rows="10" cols="50" required class="form-control input-lg" name="memberName" placeholder="enter text"></textarea>
+                                    </p>
+                                    <p class="text-center">
+                                        <button class="btn btn-info btn-lg">Update</button>
+                                    </p>
+                                </form>
+                            </div>                      
+    
+                        </div>
+                        <!--Now the list of member info extracted from the DB-->
+                        <div class="row">
+    
+                        </div>                   
+                    </div>                
+                </div>            
+            </div>
+
+        </div>
+        
+        
+    </body>
+</html>

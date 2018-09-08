@@ -17,11 +17,20 @@
             </li>            
             <li><a href="#">Team</a></li>
             <li><a href="#">Blogs</a></li>
-            <li><a href="#">Testionials</a></li>
+            <li><a href="#">Testimonials</a></li>
             <li><a href="#">Contact Us</a></li>
         </ul>
+        <% if( typeof(session.loggedIn) == 'undefined' ) {%>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Admin</a></li>
+            <li><a href="/adminLoginPage"><span class="glyphicon glyphicon-log-in"></span> Admin</a></li>
         </ul>
+        <%} else { %>        
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/adminLogout"> Logout</a></li>
+        </ul> 
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/adminDashboard"> adminDashboard</a></li>
+        </ul> 
+        <%}%>
     </div>
 </nav>

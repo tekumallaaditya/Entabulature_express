@@ -1,2 +1,3 @@
-#homePage { background-image: url('../images/background.jpg')}
+#homePage , #adminLogin { background-image: url('../images/background.jpg')}
 .item  {width: 100%; height: 550px; padding-left: 6%;  object-fit: contain;}
+#adminLoginContainer {padding-top: 100px}
