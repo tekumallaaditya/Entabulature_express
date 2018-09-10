@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var adminCreate = mongoose.model('adminEntabulature');
+var teamMember = mongoose.model('teamMember');
 
 
 exports.home = function(req, res){
@@ -29,8 +30,17 @@ exports.adminLogin = function(req, res){
             if(isMatch && isMatch == true){
                 console.log('login successfull')
                 req.session.userName = adminCreate.userName;
-                req.session.loggedIn = true;
-                res.status(201).render('adminDashboard', {session: req.session});
+                req.session.loggedIn = true; 
+                var members;               
+                getMembers(function(members, err){
+                    if(err == false){
+                        members = members;
+                        console.log('insode the admin login -----> ' +members);               
+                        res.status(201).render('adminDashboard', {session: req.session, members: members});
+                    }
+                });
+                //while(typeof(members) == 'undefined' ){ /*do nothing */}
+                
             } else {
                 console.log('Password mismatch')
                 var message = 'invalid email or password';
@@ -76,12 +86,43 @@ exports.logout = function(req, res){
 exports.adminDashboard = function(req, res){
     console.log('inside the adminDashboard function');
     if (req.session.loggedIn == true){
-        res.render('adminDashboard', {session: req.session});
+        //var team = new teamMember();
+        teamMember.find({}, function(err, members){
+            if (err){
+                req.flash('retrieveError', 'not able to retrieve team member info');
+                res.render('adminDashboard',{session: req.session, errorMemberInfo: req.flash('retrieveError')} );
+                return;
+            }
+            console.log('team members are --> ' + members.length + ' ' + members[0].name);
+            res.render('adminDashboard', {session: req.session, members: members});
+        });        
     }
     else{
         console.log('user not logged inso go go login');
         res.render('adminLogin', {session: req.session});
     }
+    
+}
+
+var getMembers = function (cb){
+    var ret;
+    teamMember.find({}, function(err, members){
+        if (err){
+            req.flash('retrieveError', 'not able to retrieve team member info');
+            ret = {errorMemberInfo: req.flash('retrieveError')};
+            //res.render('adminDashboard',{session: req.session, errorMemberInfo: req.flash('retrieveError')} );
+            //return ret;
+            cb(ret, true);
+        } else{
+            console.log('team members are --> ' +  ' ' + members.length + ' ' + members[0].name);
+            //res.render('adminDashboard', {session: req.session, members: members});
+            ret = members;
+            console.log('members are --> ' + ret[0].name    );
+            //return ret; 
+            cb(ret, false);
+        }        
+    }); 
+   
     
 }
 

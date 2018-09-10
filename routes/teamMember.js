@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var teamMember = mongoose.model('teamMember');
+var routeMethods = require('./route');
 
 exports.addMember = function(req, res){
     var member = new teamMember();
@@ -17,7 +18,21 @@ exports.addMember = function(req, res){
             return;
         } else {            
             req.flash('notify','Successfully added the new team member');
+            res.render('adminDashboard', {session: req.session, message: req.flash('notify') } );
         }
     })
 
+}
+
+exports.team = function(req, res){
+    teamMember.find({}, function(err, members){
+        if(err){
+            req.flash('retrieveError', 'not able to retrieve team member info');
+            res.render('team', {err: req.flash('retrieveError')});
+        } else{
+            console.log('In team page--> ' + members);
+            res.render('team', {members: members, session: req.session});
+        }
+    });
+    
 }

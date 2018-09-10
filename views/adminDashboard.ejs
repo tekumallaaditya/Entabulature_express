@@ -6,10 +6,13 @@
         <% include partials/navbar.ejs %>
         <div class="container">
             <h1 align="center">admin dashboard</h1>
+            <% if ( typeof(message) != 'undefined' ) { %>
+            <p class="col-md-4 col-md-offset-4" id="newTeamMember"><%= message %></p><br>
+            <% } %>
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h2 align="center" class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1">Add/Update/Delete Team Members</a>
+                        <a id="teamMemberInfo" data-toggle="collapse" href="#collapse1">Add/Update/Delete Team Members</a>
                     </h2>
                 </div>
                 <div class="panel-collapse collapse" id="collapse1">
@@ -40,14 +43,14 @@
                                 <form action="/updateMember" method="post">
                                     <p class="input-group">
                                         <span class="input-group-addon"><span class="icon-user"></span></span>
-                                        <input type="text" required class="form-control input-lg" name="memberName" placeholder="enter name">
+                                        <input id="editName" type="text" required class="form-control input-lg" name="memberName" placeholder="enter name">
                                     </p>
                                     <p class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span>
-                                        <input type="text" required class="form-control input-lg" name="memberName" placeholder="enter Designation">
+                                        <input id="editDesignation" type="text" required class="form-control input-lg" name="memberDesignation" placeholder="enter Designation">
                                     </p>
                                     <p class="input-group">                               
-                                        <textarea type="text" rows="10" cols="50" required class="form-control input-lg" name="memberName" placeholder="enter text"></textarea>
+                                        <textarea id="editText" type="text" rows="10" cols="50" required class="form-control input-lg" name="memberText" placeholder="enter text"></textarea>
                                     </p>
                                     <p class="text-center">
                                         <button class="btn btn-info btn-lg">Update</button>
@@ -58,7 +61,34 @@
                         </div>
                         <!--Now the list of member info extracted from the DB-->
                         <div class="row">
-    
+                            <% if (typeof(members) != 'undefined') { %>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Designation</th>
+                                                <th>Description</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(var i=0; i < members.length; i++) {%>
+                                            <tr>
+                                                <td><%= members[i].name %></td>
+                                                <td><%= members[i].designation %></td>
+                                                <td><%= members[i].description %></td>
+                                                <td><button type="button" onclick="edit(members[i])" class="btn btn-primary">Edit</button></td>
+                                                <td><button onclick="del(members[i])" class="btn btn-danger">Delete</button></td>
+                                            </tr>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <% } else { %>    
+                                    <h3 align="center">There are no members currently</h3>
+                                <% } %>
                         </div>                   
                     </div>                
                 </div>            

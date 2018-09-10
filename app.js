@@ -4,7 +4,7 @@ var db = require('./models/db.js');
 var teamMemberDB = require('./models/teamMemberDB.js');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var flash = require('express-flash-messages');
+var flash = require('connect-flash');
 
 
 
@@ -31,6 +31,7 @@ app.get('/', routesAPI.home);
 app.get('/adminLoginPage', routesAPI.adminLoginPage);
 app.get('/adminLogout', routesAPI.logout);
 app.get('/adminDashboard', routesAPI.adminDashboard);
+app.get('/team', teamMemberAPI.team);
 
 app.post('/AdminLogin', routesAPI.adminLogin);
 app.post('/createAdmin', routesAPI.adminCreate);
