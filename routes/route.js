@@ -35,7 +35,7 @@ exports.adminLogin = function(req, res){
                 getMembers(function(members, err){
                     if(err == false){
                         members = members;
-                        console.log('insode the admin login -----> ' +members);               
+                        console.log('insode the admin login -----> ' +members + ' ' + typeof(members));               
                         res.status(201).render('adminDashboard', {session: req.session, members: members});
                     }
                 });
@@ -93,7 +93,7 @@ exports.adminDashboard = function(req, res){
                 res.render('adminDashboard',{session: req.session, errorMemberInfo: req.flash('retrieveError')} );
                 return;
             }
-            console.log('team members are --> ' + members.length + ' ' + members[0].name);
+            //console.log('team members are --> ' + members.length + ' ' + members[0].name);
             res.render('adminDashboard', {session: req.session, members: members});
         });        
     }
@@ -114,10 +114,10 @@ var getMembers = function (cb){
             //return ret;
             cb(ret, true);
         } else{
-            console.log('team members are --> ' +  ' ' + members.length + ' ' + members[0].name);
+            //console.log('team members are --> ' +  ' ' + members.length + ' ' + members[0].name);
             //res.render('adminDashboard', {session: req.session, members: members});
             ret = members;
-            console.log('members are --> ' + ret[0].name    );
+            //console.log('members are --> ' + ret[0].name    );
             //return ret; 
             cb(ret, false);
         }        
@@ -126,4 +126,5 @@ var getMembers = function (cb){
     
 }
 
+exports.getMembers = getMembers;
 

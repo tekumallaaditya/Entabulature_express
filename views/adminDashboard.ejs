@@ -59,7 +59,9 @@
                             </div>                      
     
                         </div>
+                        <div><h3 id="specialMessages"></h3></div>
                         <!--Now the list of member info extracted from the DB-->
+                        <% if (members !== null) { %>
                         <div class="row">
                             <% if (typeof(members) != 'undefined') { %>
                                 <div class="table-responsive">
@@ -68,28 +70,31 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Designation</th>
-                                                <th>Description</th>
-                                                <th>Edit</th>
+                                                <th>Description</th>                                                
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <% for(var i=0; i < members.length; i++) {%>
-                                            <tr>
-                                                <td><%= members[i].name %></td>
-                                                <td><%= members[i].designation %></td>
-                                                <td><%= members[i].description %></td>
-                                                <td><button type="button" onclick="edit(members[i])" class="btn btn-primary">Edit</button></td>
-                                                <td><button onclick="del(members[i])" class="btn btn-danger">Delete</button></td>
+                                            <tr id="rowContent">
+                                                <td id="teamMemberName"><%= members[i].name %></td>
+                                                <td id="teamMemberDesignation"><%= members[i].designation %></td>
+                                                <td id="teamMemberDescription"><%= members[i].description %></td>                                                
+                                                <td><button id="delMember"  class="btn btn-danger">Delete</button></td>
                                             </tr>
                                             <% } %>
                                         </tbody>
                                     </table>
                                 </div>
                                 <% } else { %>    
-                                    <h3 align="center">There are no members currently</h3>
+                                    <h3  align="center">There are no members currently</h3>
                                 <% } %>
-                        </div>                   
+                        </div>  
+                        <% } else {%>
+                            <div id="noMembers">
+                                <h3 id="extraMessages">Please click on <a href="/team">team</a> again</h3>
+                            </div>  
+                        <% } %>               
                     </div>                
                 </div>            
             </div>

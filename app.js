@@ -35,9 +35,11 @@ app.get('/team', teamMemberAPI.team);
 
 app.post('/AdminLogin', routesAPI.adminLogin);
 app.post('/createAdmin', routesAPI.adminCreate);
+app.post('/updateMember',teamMemberAPI.updateMember);
 
 //post requests for adding and deleting team members
 app.post('/addMember', teamMemberAPI.addMember);
+app.post('/delMember', teamMemberAPI.delMember);
 
 app.listen(port, function(){
     console.log(chalk.green('server is up and running on port ' + port));

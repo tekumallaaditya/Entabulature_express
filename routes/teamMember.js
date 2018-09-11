@@ -16,11 +16,54 @@ exports.addMember = function(req, res){
             //res.render('adminUser', {errorMessage: message});
             res.flash('error while saving the new member' + err);
             return;
-        } else {            
-            req.flash('notify','Successfully added the new team member');
-            res.render('adminDashboard', {session: req.session, message: req.flash('notify') } );
+        } else {  
+            var members;
+            routeMethods.getMembers(function(members, err){
+                if(err == false){
+                    members = members;
+                    //console.log('inside the addmember function -----> ' +members);
+                    req.flash('notify','Successfully added the new team member'); 
+                    res.status(201).render('team', {session: req.session, members: members, message: req.flash('notify')});
+                } else {
+                    req.flash('notify','Failed to add the new member'); 
+                    res.render('team', {session: req.session, members: members, message: req.flash('notify')});                    
+                }
+            });       
+            
+            
         }
+    });
+
+}
+
+exports.updateMember = function(req, res){
+    var name = req.body.memberName;
+    var designation = req.body.memberDesignation;
+    var description = req.body.memberText;
+
+    console.log('inside the update method -->> ' + name + designation + description);
+    teamMember.findOneAndUpdate({name : name}, {$set: {name : name, designation: designation, description: description}}, function(err, mem){
+        if (mem == null) {
+            console.log('mem not found---------------------------------------------->>>>')
+            req.flash('errorMember', 'not able to retrieve team member info');
+            res.render('team', {session: req.session, members: members, message: req.flash('errorMember')}); 
+        } else {
+            var members;
+            routeMethods.getMembers(function(members, error){
+                if(error == false){
+                    members = members;
+                    console.log('inside the update function -----> ');
+                    req.flash('notify','Successfully updated the new team member'); 
+                    res.status(201).render('team', {session: req.session, members: members, message: req.flash('notify')});
+                } else {
+                    console.log('inside update with error');
+                    req.flash('notify','Failed to update the new member'); 
+                    res.render('team', {session: req.session, members: members, message: req.flash('notify')});                    
+                }
+            });
+        }  
     })
+    
 
 }
 
@@ -30,9 +73,25 @@ exports.team = function(req, res){
             req.flash('retrieveError', 'not able to retrieve team member info');
             res.render('team', {err: req.flash('retrieveError')});
         } else{
-            console.log('In team page--> ' + members);
+            console.log('In team page--> ');
             res.render('team', {members: members, session: req.session});
         }
     });
     
+}
+
+exports.delMember = function(req, res){
+    console.log('inside the del function-------------------------');
+    teamMember.findOneAndRemove({name : req.body.name}, function(error, mem){
+        if (error != null) {
+            req.flash('delError', 'error while deleting the member');
+            //res.render('team', {members: members, session: req.session, err: req.flash('delError')});
+            res.send('some error');
+        } else {
+            console.log('employee details deleted');
+            req.flash('delsuccess', 'Member deleted');
+            //res.render('team', {members: members, session: req.session, err: req.flash('delsuccess')});
+            res.send('deleted successfully, please refresh the page');
+        }
+    })
 }
