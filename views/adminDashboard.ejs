@@ -98,6 +98,61 @@
                     </div>                
                 </div>            
             </div>
+            <!--This is for contactUS section of the page-->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 align="center" class="panel-title">
+                        <a id="contactUsHeader" data-toggle="collapse" href="#collapse2">Contact Us</a>
+                    </h2>
+                </div>
+                <div class="panel-collapse collapse" id="collapse2">    
+                    <div class="panel-body">
+                        <!--here we enter the contact details of the company-->
+                        <div id="contactInfo" class="col-md-4">
+                            <h4 align="center">Company name cannot be changed</h4>
+                            <form action="/postContactInfo" method="post">
+                                <p class="input-group">
+                                    <span style="width: 110px" class="input-group-addon">Company</span>
+                                    <input type="text" class="form-control input-lg" required name="companyName" id="editName" placeholder="enter Name"
+                                </p>
+                                <p class="input-group">
+                                    <span style="width: 110px" class="input-group-addon">Street</span>
+                                    <input type="text" class="form-control input-lg" required name="contactStreet" id="editStreet" placeholder="enter street"
+                                </p>
+                                <p class="input-group">
+                                    <span style="width: 110px" class="input-group-addon">Door Number</span>
+                                    <input type="text" class="form-control input-lg" required name="contactDoorNumber" id="editDoorNumber" placeholder="enter Door Number"
+                                </p>
+                                <p class="input-group">
+                                    <span style="width: 110px" class="input-group-addon">Additional info</span>
+                                    <input type="text" class="form-control input-lg" required name="contactAdditional" id="editAdditional" placeholder="enter Additional lines"
+                                </p>
+                                <p class="input-group">
+                                    <span style="width: 110px" class="input-group-addon">Phone</span>
+                                    <input type="text" class="form-control input-lg" required name="contactPhone" id="editPhone" placeholder="enter Phone Number"
+                                </p>
+                                <p class="text-center">
+                                    <button class="btn btn-info btn-lg">Enter</button>
+                                </p>
+                            </form>
+                        </div>
+                        <!--Current address is presented here-->
+                        <div class="col-md-6 col-md-offset-2">
+                            <div class="jumbotron" id="currentContact">
+                                <h3 align="center">Current Address</h3>
+                                <% if (contactInfo) { %>                                 
+                                    <p>Company Name: <%= contactInfo[0].company %></p>          
+                                    <p>Street Name: <%= contactInfo[0].street %></p>
+                                    <p>Door No: <%= contactInfo[0].doorNo %></p>
+                                    <p>Additional Info: <%= contactInfo[0].additionalLines %></p>
+                                    <p>Phone: <%= contactInfo[0].phone %></p>
+                                 
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>                
+                </div>                
+            </div>
 
         </div>
         

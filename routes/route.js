@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var adminCreate = mongoose.model('adminEntabulature');
 var teamMember = mongoose.model('teamMember');
+var contactAdd = mongoose.model('contactAddressInfo');
+
 
 
 exports.home = function(req, res){
@@ -93,8 +95,18 @@ exports.adminDashboard = function(req, res){
                 res.render('adminDashboard',{session: req.session, errorMemberInfo: req.flash('retrieveError')} );
                 return;
             }
-            //console.log('team members are --> ' + members.length + ' ' + members[0].name);
-            res.render('adminDashboard', {session: req.session, members: members});
+            //console.log('team members are --> ' + members.length + ' ' + members[0].name);            
+            contactAdd.find({}, function(errContact, contactInfo){
+                if(err){
+                    req.flash('retrieveErrorContact', 'not able to retrieve contactUs info');
+                    res.render('adminDashboard',{session: req.session, errorMemberInfo: req.flash('retrieveErrorContact')} );
+                    return;
+                }
+                console.log('inside route file and contactADD function');
+                console.log('var is -> ' + contactInfo )
+                res.render('adminDashboard', {session: req.session, members: members, contactInfo: contactInfo });
+            });
+            
         });        
     }
     else{
