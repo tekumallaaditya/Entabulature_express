@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var adminCreate = mongoose.model('adminEntabulature');
 var teamMember = mongoose.model('teamMember');
 var contactAdd = mongoose.model('contactAddressInfo');
+var contactAddress = require('./contactAdress');
 
 
 
@@ -38,7 +39,12 @@ exports.adminLogin = function(req, res){
                     if(err == false){
                         members = members;
                         console.log('insode the admin login -----> ' +members + ' ' + typeof(members));               
-                        res.status(201).render('adminDashboard', {session: req.session, members: members});
+                        //res.status(201).render('adminDashboard', {session: req.session, members: members});
+                        contactAddress.getContactInfo(function(contactInfo, errorContact){
+                            if(errorContact == false){
+                                res.status(201).render('adminDashboard', {session: req.session, members: members, contactInfo : contactInfo});
+                            }
+                        })
                     }
                 });
                 //while(typeof(members) == 'undefined' ){ /*do nothing */}
