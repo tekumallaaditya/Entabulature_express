@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 var chalk = require('chalk');
 
-var dbURL = 'mongodb://localhost/Entabulature';
+var dbURL = 'mongodb://entabulature:HarshaAllTheBest1983@ds115523.mlab.com:15523/entabulature';
+
+
+//var dbURL = 'mongodb://localhost/entabulature';
+//var dbURL = 'mongodb://Entabulature:HarshaAllTheBest1983@ds115613.mlab.com:15613/entabulature';
 
 mongoose.connect(dbURL);
 

@@ -29,7 +29,7 @@
         <% include partials/navbar.ejs %>
         <div id="map-container" class="col-md-8 col-md-offset-2"></div><br><br>
         
-        <% if (contactInfo) { %>
+        <% if ( typeof(contactInfo[0]) !== 'undefined'  ){ %>
         <div class="jumbotron col-md-4 col-md-offset-4" id="contactHere">  
             <p>Company Name: <%= contactInfo[0].company %></p>          
             <p>Street Name: <%= contactInfo[0].street %></p>

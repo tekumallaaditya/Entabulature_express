@@ -140,7 +140,7 @@
                         <div class="col-md-6 col-md-offset-2">
                             <div class="jumbotron" id="currentContact">
                                 <h3 align="center">Current Address</h3>
-                                <% if (contactInfo) { %>                                 
+                                <% if ( typeof(contactInfo[0]) != 'undefined') { %>                                 
                                     <p>Company Name: <%= contactInfo[0].company %></p>          
                                     <p>Street Name: <%= contactInfo[0].street %></p>
                                     <p>Door No: <%= contactInfo[0].doorNo %></p>
@@ -153,8 +153,57 @@
                     </div>                
                 </div>                
             </div>
+            <!--Below is for the Testimonial section of the admin-->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="panel-title" align="center">
+                        <a href="#collapse3" id="userTestimonialPanel" data-toggle="collapse">testimonials</a>                        
+                    </h2>
+                </div>
+                <div class="panel-collapse collapse" id="collapse3">
+                    <div class="panel-body">
+                        <h3>Below is the list of testimonials of users</h3>
+                        <% if(typeof(userTestimonials) != 'undefined' || userTestimonials != null  ) {%>
+                        <ul>
+                            <div id="specialMessageTestimony"></div>
+                            <% for (var i= 0; i < userTestimonials.length ; i++) { %>
+                                <div id="TestimonyList">
+                                    <li id="testimonyUserName"><%= userTestimonials[i].nameUser %></li>     
+                                    <p id="testimonyUserMessage"><%= userTestimonials[i].textUser %>  
+                                    <button onclick="delTestimony('<%= userTestimonials[i].nameUser %>')"  style="float: right" class="btn btn-danger">Delete</button></p> 
+                                </div>                                   
+                                <hr>       
+                            <% } %>
+                        </ul>  
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <!--Below is for the photo gallery-->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="panel-title" align="center">
+                        <a href="#collapse4" data-toggle="collapse">Photo Gallery</a>
+                    </h2>
+                </div>
+                <div class="panel-collapse collapse" id="collapse4">
+                    <div class="panel-body">
+                        <h3 align="center">Below is the place to upload or delete pics</h3>
+                        <form action="/constructionPic" method="post" enctype="multipart/form-data">                            
+                            <div class="custom-file">
+                                <input type="file" name="file" id="file" class="custom-file-input" >
+                                <label for="file" class="custom-file-label">Choose a pic</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
         </div>
+
+       
         
         
     </body>

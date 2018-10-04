@@ -2,7 +2,9 @@ var mongoose = require('mongoose');
 var adminCreate = mongoose.model('adminEntabulature');
 var teamMember = mongoose.model('teamMember');
 var contactAdd = mongoose.model('contactAddressInfo');
+var userTestimonial = mongoose.model('testimonialSchema');
 var contactAddress = require('./contactAdress');
+var testimonials = require('./testimonials');
 
 
 
@@ -42,9 +44,16 @@ exports.adminLogin = function(req, res){
                         //res.status(201).render('adminDashboard', {session: req.session, members: members});
                         contactAddress.getContactInfo(function(contactInfo, errorContact){
                             if(errorContact == false){
-                                res.status(201).render('adminDashboard', {session: req.session, members: members, contactInfo : contactInfo});
+                                console.log('inside the login contactAdrress info');
+                                testimonials.getTestimonialInfo(function(testInfo, erroTest){
+                                    if(erroTest == false){
+                                        console.log('inside login getTestimonialInfo function' + testInfo);
+                                        res.status(201).render('adminDashboard', {session: req.session, members: members, contactInfo : contactInfo, userTestimonials: testInfo});
+                                    }
+                                });
+                                
                             }
-                        })
+                        });
                     }
                 });
                 //while(typeof(members) == 'undefined' ){ /*do nothing */}
@@ -70,8 +79,9 @@ exports.adminCreate = function(req, res){
     console.log('admin user email --------------->>>>>>> ' + adminNew.userEmail);
 
     adminNew.save(function(error, saveUser){
-        if (err){
+        if (error){
             console.log('user name or email already exists');
+            //console.log(error, savedUser)
             var message = 'user name or email already exists';
             //res.render('adminUser', {errorMessage: message});
             return;
@@ -103,14 +113,24 @@ exports.adminDashboard = function(req, res){
             }
             //console.log('team members are --> ' + members.length + ' ' + members[0].name);            
             contactAdd.find({}, function(errContact, contactInfo){
-                if(err){
+                if(errContact){
                     req.flash('retrieveErrorContact', 'not able to retrieve contactUs info');
                     res.render('adminDashboard',{session: req.session, errorMemberInfo: req.flash('retrieveErrorContact')} );
                     return;
                 }
-                console.log('inside route file and contactADD function');
-                console.log('var is -> ' + contactInfo )
-                res.render('adminDashboard', {session: req.session, members: members, contactInfo: contactInfo });
+                userTestimonial.find({}, function(errTestimonial, userTestimonials){
+                    if(errTestimonial){
+                        req.flash('retrieveErrorTestimonial', 'not able to retrieve testimonial info');
+                        res.render('adminDashboard',{session: req.session, errorMemberInfo: req.flash('retrieveErrorTestimonial')} );
+                        return;
+                    }
+                    console.log('inside route file and userTestimonial function');
+                    console.log('var is -> ' + userTestimonials )
+                    res.render('adminDashboard', {session: req.session, members: members, contactInfo: contactInfo, userTestimonials: userTestimonials });
+
+                });
+
+                
             });
             
         });        

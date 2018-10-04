@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <% include partials/head.ejs %>
+    </head>
+    <body id="testimonialsPage">
+        <% include partials/navbar.ejs %>
+        <div class="container">
+            <div class="jumbotron">
+                <h3 align="center">Below are the testimonials</h3>
+                <!--Below is the list of testimonials extracted from the DB-->                
+                <% if (typeof(testimonials) != 'undefined') { %>
+                    <ul>
+                        <% for (var i= 0; i < testimonials.length ; i++) { %>
+                            <li><%= testimonials[i].nameUser %></li>     
+                            <%= testimonials[i].textUser %>      
+                            <hr>       
+                        <% } %>
+                    </ul>                    
+                <% } %>
+                <!--Below is the form for new user testimonial-->
+                <form action="/newTestimonial" method="post">
+                    <p class="input-group col-md-3  ">
+                        <span class="input-group-addon"><span class="icon-user"></span></span>
+                        <input type="text" name="userTestimonial" class="form-control" placeholder="Enter Name">
+                    </p>
+                    <p class="input-group col-md-4">
+                        <span class="input-group-addon"><span class="icon-envelope"></span></span>
+                        <textarea name="textTestimonial"  rows="5" placeholder="Enter Testimonial"></textarea>
+                    </p>
+                    <button class="btn btn-primary">send</button>
+                </form>
+            </div>
+        </div>        
+    </body>
+</html>

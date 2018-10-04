@@ -5,15 +5,14 @@ var chalk = require('chalk');
 //var dbURL = 'mongodb://localhost/entabulature';
 var dbURL = 'mongodb://entabulature:HarshaAllTheBest1983@ds115523.mlab.com:15523/entabulature';
 
-
 mongoose.connect(dbURL);
 
-var contactSchema = new mongoose.Schema({
-    company: {type: String},
-    street : {type: String},
-    doorNo : {type: String},
-    additionalLines: {type:String},
-    phone : {type:String}
+mongoose.connection.on('connected', function(){
+    console.log(chalk.green('DB connected'));
 });
-
-mongoose.model('contactAddressInfo', contactSchema);
+mongoose.connection.on('disconnected', function(){
+    console.log(chalk.red('DB connected'));
+});
+mongoose.connection.on('error', function(e){
+    console.log(chalk.red('DB connected' + e));
+});

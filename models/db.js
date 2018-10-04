@@ -3,7 +3,9 @@ var chalk = require('chalk');
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
-var dbURL = 'mongodb://localhost/Entabulature';
+var dbURL = 'mongodb://entabulature:HarshaAllTheBest1983@ds115523.mlab.com:15523/entabulature';
+//var dbURL = 'mongodb://127.0.0.1:27017/Entabulature';
+//var dbURL = 'mongodb://Entabulature:HarshaAllTheBest1983@ds115613.mlab.com:15613/entabulature';
 
 mongoose.connect(dbURL);
 
@@ -30,9 +32,13 @@ adminSchema.pre('save', function(next){
     if(!user.isModified('userPassword')) return next();
 
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+        console.log('inside the genSalt funstion')
+        console.log(salt)
         if(err) return next(err);
-
+        console.log(salt)
         bcrypt.hash(user.userPassword, salt, function(err, hash){
+            console.log('inside the hash function')
+            console.log(hash)
             if(err) return next(err);
 
             user.userPassword = hash;

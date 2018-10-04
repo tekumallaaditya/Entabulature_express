@@ -7,7 +7,7 @@ exports.getContact = function(req, res){
     getContactInfo(function(info, err){
         if(err == false){
             contactInfo = info;
-            console.log('inside the getContact cb function ' + contactInfo[0].street + ' ' + typeof(contactInfo));
+            console.log('inside the getContact cb function ' + ' ' + typeof(contactInfo), contactInfo);
             res.render('contactUs', {session: req.session, contactInfo : contactInfo});
         }
     });
