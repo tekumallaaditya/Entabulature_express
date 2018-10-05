@@ -7,8 +7,8 @@ var Grid = require('gridfs-stream');
 var methodOverride = require('method-override');
 
 var mongoConfig = require('./configDB');
-//dbURL = mongoConfig.dbURL;
-dbURL = 'mongodb://entabulature:HarshaAllTheBest1983@ds115523.mlab.com:15523/entabulature';
+dbURL = mongoConfig.dbURL;
+//dbURL = 'mongodb://entabulature:HarshaAllTheBest1983@ds115523.mlab.com:15523/entabulature';
 console.log('dbURL is -<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + dbURL);
 
 var conn = mongoose.createConnection(dbURL);
@@ -39,3 +39,5 @@ conn.once('open', function () {
   var uploadConstrutionPics = multer({ storage });
 
 exports.uploadConstrutionPics = uploadConstrutionPics;
+exports.gfs = gfs;
+exports.conn = conn;

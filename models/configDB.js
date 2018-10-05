@@ -16,3 +16,5 @@ mongoose.connection.on('disconnected', function(){
 mongoose.connection.on('error', function(e){
     console.log(chalk.red('DB connected' + e));
 });
+
+exports.dbURL = dbURL;

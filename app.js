@@ -9,16 +9,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var flash = require('connect-flash');
 var constructionUploads = require('./models/picUploads');
-
-//imports concerning the GridFs
-var path = require('path');
-var crypto = require('crypto');
-var multer = require('multer');
-var GridFsStorage = require('multer-gridfs-storage');
-var Grid = require('gridfs-stream');
 var methodOverride = require('method-override');
-
-
 
 
 var routesAPI = require('./routes/route.js');
@@ -51,6 +42,8 @@ app.get('/adminDashboard', routesAPI.adminDashboard);
 app.get('/team', teamMemberAPI.team);
 app.get('/contactUs', getContactInfo.getContact );
 app.get('/testimonials', getTestimonials.getTestimonials);
+app.get('/constructionPics', routePicUploads.getConstructionPics);
+app.get('/constructionImages/:filename',  routePicUploads.getSingleConstructionPic);
 
 app.post('/AdminLogin', routesAPI.adminLogin);
 app.post('/createAdmin', routesAPI.adminCreate);
@@ -65,6 +58,9 @@ app.post('/constructionPic', constructionUploads.uploadConstrutionPics.single('f
 app.post('/addMember', teamMemberAPI.addMember);
 app.post('/delMember', teamMemberAPI.delMember);
 app.post('/delTestimony', getTestimonials.delTestimony );
+
+//gridfs delete calls
+app.delete('/files/:id', routePicUploads.delConstructionPic);
 
 app.listen(port, function(){
     console.log(chalk.green('server is up and running on port ' + port));

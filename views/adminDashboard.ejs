@@ -188,12 +188,23 @@
                     </h2>
                 </div>
                 <div class="panel-collapse collapse" id="collapse4">
-                    <div class="panel-body">
-                        <h3 align="center">Below is the place to upload or delete pics</h3>
+                    <div class="panel-body col-md-4">
+                        <h4 align="center">Below is the place to upload or delete construction pics</h4>
                         <form action="/constructionPic" method="post" enctype="multipart/form-data">                            
                             <div class="custom-file">
                                 <input type="file" name="file" id="file" class="custom-file-input" >
-                                <label for="file" class="custom-file-label">Choose a pic</label>
+                                <label for="file" class="custom-file-label">Construction pic</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                    <!--below is the elevation pic-->
+                    <div class="panel-body col-md-4">
+                        <h4 align="center">Below is the place to upload or delete elevation pic</h4>
+                        <form action="/constructionPic" method="post" enctype="multipart/form-data">                            
+                            <div class="custom-file">
+                                <input type="file" name="file" id="file" class="custom-file-input" >
+                                <label for="file" class="custom-file-label">Elevation pic</label>
                             </div>
                             <button type="submit" class="btn btn-primary">Add</button>
                         </form>

@@ -2,3 +2,4 @@
 .item  {width: 100%; height: 550px; padding-left: 6%;  object-fit: contain;}
 #adminLoginContainer {padding-top: 100px}
 #newTeamMember, #specialMessages {background-color: #f89406;border-color: #e96506;color: #ffffff; text-align: center}
+#constructions >div > img {padding-left: 10%}
