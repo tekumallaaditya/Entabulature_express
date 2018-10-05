@@ -14,10 +14,8 @@ console.log('dbURL is -<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + dbURL);
 var conn = mongoose.createConnection(dbURL);
 var gfs;
 conn.once('open', function () {
-    gfs = Grid(conn.db, mongoose.mongo);  
-    gfs.collection('constructions');
-    gfs.collection('elevations');
-    gfs.collection('interiors');
+    gfs = Grid(conn.db, mongoose.mongo);   
+    gfs.collection('elevations');    
   });
 
   var storage = new GridFsStorage({
@@ -31,15 +29,14 @@ conn.once('open', function () {
           const filename = buf.toString('hex') + path.extname(file.originalname);
           const fileInfo = {
             filename: filename,
-            bucketName: 'constructions'
+            bucketName: 'elevations'
           };
           resolve(fileInfo);
         });
       });
     }
   });
-  var uploadConstrutionPics = multer({ storage });
+  var uploadElevationPics = multer({ storage });
 
-exports.uploadConstrutionPics = uploadConstrutionPics;
-exports.gfs = gfs;
+exports.uploadElevationPics = uploadElevationPics;
 exports.conn = conn;

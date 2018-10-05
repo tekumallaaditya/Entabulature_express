@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var flash = require('connect-flash');
 var constructionUploads = require('./models/picUploads');
+var elevationUploads = require('./models/elevationPics');
 var methodOverride = require('method-override');
 
 
@@ -17,6 +18,7 @@ var teamMemberAPI = require('./routes/teamMember.js');
 var getContactInfo = require('./routes/contactAdress');
 var getTestimonials = require('./routes/testimonials');
 var routePicUploads = require('./routes/photoGallery');
+var routeElevationUploads = require('./routes/elevationGallery');
 
 //creating an app from the express module
 var app = express();
@@ -43,7 +45,9 @@ app.get('/team', teamMemberAPI.team);
 app.get('/contactUs', getContactInfo.getContact );
 app.get('/testimonials', getTestimonials.getTestimonials);
 app.get('/constructionPics', routePicUploads.getConstructionPics);
+app.get('/elevationPics', routeElevationUploads.getElevationPics);
 app.get('/constructionImages/:filename',  routePicUploads.getSingleConstructionPic);
+app.get('/elevationImages/:filename',  routeElevationUploads.getSingleElevationPic);
 
 app.post('/AdminLogin', routesAPI.adminLogin);
 app.post('/createAdmin', routesAPI.adminCreate);
@@ -53,6 +57,7 @@ app.post('/newTestimonial', getTestimonials.newTestimonials);
 
 //post requests for adding photos
 app.post('/constructionPic', constructionUploads.uploadConstrutionPics.single('file')  , routePicUploads.constructionPic);
+app.post('/elevationPic', elevationUploads.uploadElevationPics.single('file'), routeElevationUploads.elevationPic );
 
 //post requests for adding and deleting team members
 app.post('/addMember', teamMemberAPI.addMember);
@@ -61,6 +66,7 @@ app.post('/delTestimony', getTestimonials.delTestimony );
 
 //gridfs delete calls
 app.delete('/files/:id', routePicUploads.delConstructionPic);
+app.delete('/elevationfiles/:id', routeElevationUploads.delElevationPic);
 
 app.listen(port, function(){
     console.log(chalk.green('server is up and running on port ' + port));
