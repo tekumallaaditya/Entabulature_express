@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <% include partials/head.ejs %>
+    </head>
+    <body id="constructions">
+        <% include partials/navbar.ejs %>     
+            <h2 align="center">Interiors</h2>
+        <% if(files) { %>            
+                <% files.forEach(function(file) { %>
+                    <div class="card-img-top">
+                        <% if(file.isImage) {%>
+                            <img  src="interiorImages/<%= file.filename %>" alt="">
+                        <% } else { %>
+                            <%= file.filename %>
+                        <% } %>
+                        <% if(typeof(session.loggedIn) !== 'undefined') { %>
+                        <div class="col-md-4 col-md-offset-4" ><br>
+                            <form method="post" action="/interiorfiles/<%= file._id %>?_method=DELETE">
+                                <button style="float: right" class="btn btn-danger btn-block mt-4">Delete</button>
+                            </form>
+                        </div>    
+                        <% } %>                    
+                    </div><br><br><br><br>                   
+                <%} )%>          
+        <% } else { %>
+            <h2>No pics to show</h2>
+        <% } %>               
+    </body>
+</html>

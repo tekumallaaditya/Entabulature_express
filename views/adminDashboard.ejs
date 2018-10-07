@@ -209,6 +209,48 @@
                             <button type="submit" class="btn btn-primary">Add</button>
                         </form>
                     </div>
+                    <!--below is the interior pic-->
+                    <div class="panel-body col-md-4">
+                        <h4 align="center">Below is the place to upload or delete interior pic</h4>
+                        <form action="/interiorPic" method="post" enctype="multipart/form-data">                            
+                            <div class="custom-file">
+                                <input type="file" name="file" id="file" class="custom-file-input" >
+                                <label for="file" class="custom-file-label">Interior pic</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--Below is for the Projects section of the admin-->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="panel-title" align="center">
+                        <a href="#collapse5" id="projectsPanel" data-toggle="collapse">projects</a>                        
+                    </h2>
+                </div>
+                <div class="panel-collapse collapse" id="collapse5">
+                    <div class="panel-body">
+                        <h3 align="center">Please enter the project details below</h3>
+                        <form action="/addProject" method="post">
+                            <p class="input-group">
+                                <span style="width: 110px" class="input-group-addon">title</span>
+                                <input type="text" class="form-control input-lg" required name="projectTitle" placeholder="title">
+                            </p>                            
+                            <p class="input-group">
+                                <span style="width: 110px" class="input-group-addon">Description</span>                                
+                                <textarea class="form-control input-lg" name="projectDescription" cols="30" rows="10"></textarea>
+                            </p>  
+                            <!--
+                            <div class="custom-file">
+                                <input type="file" name="file" id="file" class="custom-file-input" >
+                                <label for="file" class="custom-file-label">Project Pics</label>
+                            </div>    -->
+                            <p >
+                                <button class="btn btn-info btn-lg">Enter</button>
+                            </p>                     
+                        </form>
+                    </div>
                 </div>
             </div>
 

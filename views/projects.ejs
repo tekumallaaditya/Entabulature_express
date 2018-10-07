@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <% include partials/head.ejs %>
+    </head>
+    <body>
+        <% include partials/navbar.ejs %> 
+        <div class="container">
+                
+            <h1>projects</h1>    
+            <% if(projects.length != 0) { %>
+                <% projects.forEach(function(project){ %>
+                    <div class="row">
+                        <div>
+                            <h3>Project Title: <%= project.title %></h3>
+                            <p>project Description: <%= project.description %></p>
+                            <% if (typeof(session.loggedIn) !== 'undefined') { %>
+                                <form action="/deleteProject/<%= project.title %>?_method=DELETE" method="post">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>                            
+                            <% } %>
+                            <hr>
+                        </div>
+                        
+                    </div>                               
+                <% }) %>
+            <% } %>
+
+        </div>        
+    </body>
+</html>
